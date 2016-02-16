@@ -3,6 +3,7 @@ var fs = require('fs');
 var extfs = require('extfs');
 var yesno = require('yesno');
 var download = require('download-git-repo');
+var installPlugin = require('./installPlugin.js');
 
 module.exports = function (options) {
   if(typeof options.type == 'undefined') {
@@ -21,6 +22,7 @@ var dlMusiqPad = function () {
     }
     else {
       console.log("Succesfully downloaded MusiqPad, now installing PadPlus.");
+      installPadPlus();
     }
   });
 }
@@ -49,4 +51,23 @@ var checkForMP = function () {
   else {
     dlMusiqPad();
   }
+}
+
+var ConfigTemplate = {
+  version: "0.0.1",
+  plugins: [
+    "testPlugIn1"
+  ]
+}
+
+var installPadPlus = function () {
+  fs.writeFile(process.cwd()+"/padplus.config.json", JSON.stringify(ConfigTemplate, null, 4), function(err) {
+      if(err) {
+          return console.log(err);
+      }
+      console.log("Created Config!");
+      for(plugin in ConfigTemplate.plugins) {
+        installPlugin(plugin);
+      }
+  });
 }

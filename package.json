@@ -23,6 +23,7 @@
     "git-clone": "^0.1.0",
     "git-download": "0.0.2",
     "gitclone": "^1.0.4",
+    "npmi": "^1.0.1",
     "prompt": "^1.0.0",
     "update-notifier": "^0.6.0",
     "yesno": "0.0.1"
