@@ -56,7 +56,7 @@ var checkForMP = function () {
 var ConfigTemplate = {
   version: "0.0.1",
   plugins: [
-    "testPlugIn1"
+    "explodingcamera/musiqplus"
   ]
 }
 
@@ -66,8 +66,8 @@ var installPadPlus = function () {
           return console.log(err);
       }
       console.log("Created Config!");
-      for(plugin in ConfigTemplate.plugins) {
-        installPlugin(plugin);
-      }
+      ConfigTemplate.plugins.forEach(function (e) {
+        installPlugin(e);
+      })
   });
 }

@@ -1,13 +1,16 @@
 var npmi = require('npmi');
-
+var fs = require('fs');
 
 module.exports = function (module) {
+  if(module.indexOf("padplus-plugin") == -1 && module.indexOf("/") == -1){
+    module = "padplus-plugin-".concat(module);
+  }
   var options = {
-      name: module,    // your module name
-      path: process.cwd(),              // installation path [default: '.']
-      forceInstall: false,    // force install if set to true (even if already installed, it will do a reinstall) [default: false]
-      npmLoad: {              // npm.load(options, callback): this is the "options" given to npm.load()
-          loglevel: 'info'  // [default: {loglevel: 'silent'}]
+      name: module,
+      path: process.cwd(),
+      forceInstall: false,
+      npmLoad: {
+          loglevel: 'info'
       }
   };
   npmi(options, function (err, result) {
@@ -17,8 +20,20 @@ module.exports = function (module) {
           return console.log(err.message);
       }
 
-      var file_content = fs.readFileSync(filename);
-      fs.writeFileSync(filename, JSON.stringify(content));
-      console.log(options.name+'@'+options.version+' installed successfully in '+path.resolve(options.path));
-  });
+      module.replace("padplus-plugin-", "");
+      fs.readFile(process.cwd()+"/padplus.config.json", function read(err, data) {
+          if (err) {
+              throw err;
+          }
+          processConfig(data);
+      });
+      var processConfig = function (content) {
+        content = JSON.parse(content);
+        if(content.plugins.indexOf(module) == -1)
+        content.plugins.push(module);
+        fs.writeFile(process.cwd()+"/padplus.config.json", JSON.stringify(content, null, 4), function(err) {
+          console.log(options.name+'@'+options.version+' installed successfully in '+ options.path);
+        });
+      }
+ });
 }
