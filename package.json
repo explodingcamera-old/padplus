@@ -1,0 +1,30 @@
+{
+  "name": "mqpm",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/explodingcamera/mqpm.git"
+  },
+  "author": "Henry Gressmann",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/explodingcamera/mqpm/issues"
+  },
+  "homepage": "https://github.com/explodingcamera/mqpm#readme",
+  "dependencies": {
+    "assert": "^1.3.0",
+    "commander": "^2.9.0",
+    "extfs": "0.0.7",
+    "git-clone": "^0.1.0",
+    "git-download": "0.0.2",
+    "gitclone": "^1.0.4",
+    "prompt": "^1.0.0",
+    "update-notifier": "^0.6.0",
+    "yesno": "0.0.1"
+  }
+}
