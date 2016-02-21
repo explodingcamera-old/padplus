@@ -15,16 +15,15 @@ var version = pkg.version;
 
 updateNotifier({ pkg }).notify();
 
-
 program
 	.usage('<command> [options]')
   .version(version);
 
-program.on('--help', function(){
+program.on('--help', function () {
   console.log('  To get additionaly help + options for a command, do');
-	console.log();
+  console.log();
   console.log('    $ padplus <command> --help');
-	console.log('');
+  console.log('');
 });
 
 program
@@ -32,28 +31,28 @@ program
 	.usage('[options]')
 	.option('-T --type <type>', 'Type of installation (full|medium|lite)', /^(full|medium|lite)$/i)
   .action(require('../src/setup.js'))
-	.on('--help', function() {
-	  console.log('  Examples:');
-	  console.log();
-	  console.log('    $ padplus setup light');
-	  console.log('    $ padplus setup');
-	  console.log();
+	.on('--help', function () {
+  console.log('  Examples:');
+  console.log();
+  console.log('    $ padplus setup light');
+  console.log('    $ padplus setup');
+  console.log();
 	});
 
 program
 	.command('install <plugins>')
-	.option('-S, --save', "Add plugin to")
+	.option('-S, --save', 'Add plugin to')
   .action(require('../src/install.js'))
-	.on('--help', function() {
-	  console.log('  Examples:');
-	  console.log();
-	  console.log('    $ padplus install //installs all plugins in padplus.json');
-		console.log('    $ padplus install contrib-');
-	  console.log();
+	.on('--help', function () {
+  console.log('  Examples:');
+  console.log();
+  console.log('    $ padplus install //installs all plugins in padplus.json');
+  console.log('    $ padplus install contrib-');
+  console.log();
 	});
 
 program.parse(process.argv);
 
 if (!program.args.length) {
-	program.outputHelp(colors.cyan);
+  program.outputHelp(colors.cyan);
 }
