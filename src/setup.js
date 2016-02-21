@@ -67,7 +67,7 @@ var installPadPlus = function () {
       }
       console.log("Created Config!");
       ConfigTemplate.plugins.forEach(function (e) {
-        installPlugin(e);
-      })
+        installPlugin(e, 'Plugin');
+      });
   });
 }

@@ -1,10 +1,10 @@
 var npmi = require('npmi');
 var fs = require('fs');
 
-module.exports = function (module) {
-  if(module.indexOf("padplus-plugin") == -1 && module.indexOf("/") == -1){
-    module = "padplus-plugin-".concat(module);
-  }
+module.exports = function (module, type) {
+  if(type == 'plugin')
+    if(module.indexOf("padplus-plugin") == -1 && module.indexOf("/") == -1)
+      module = "padplus-plugin-".concat(module);
   var options = {
       name: module,
       path: process.cwd(),
@@ -25,7 +25,8 @@ module.exports = function (module) {
           if (err) {
               throw err;
           }
-          processConfig(data);
+          if(type == 'plugin')
+            processConfig(data);
       });
       var processConfig = function (content) {
         content = JSON.parse(content);
