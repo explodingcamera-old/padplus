@@ -40,13 +40,12 @@ program
 	});
 
 program
-	.command('install <plugins>')
-	.option('-S, --save', 'Add plugin to')
+	.command('install [plugins...]')
   .action(require('../src/install.js'))
 	.on('--help', function () {
   console.log('  Examples:');
   console.log();
-  console.log('    $ padplus install //installs all plugins in padplus.json');
+  console.log('    $ padplus install //installs all plugins in padplus.config.json');
   console.log('    $ padplus install contrib-');
   console.log();
 	});

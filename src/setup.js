@@ -1,9 +1,10 @@
-var colors = require('colors');
-var fs = require('fs');
-var extfs = require('extfs');
-var yesno = require('yesno');
-var download = require('download-git-repo');
-var installPlugin = require('./installPlugin.js');
+const colors = require('colors');
+const fs = require('fs');
+const extfs = require('extfs');
+const yesno = require('yesno');
+const download = require('download-git-repo');
+const installPlugin = require('./installPlugin.js');
+var loglevel = 'error';
 
 module.exports = function (options) {
   if (typeof options.type == 'undefined') {
@@ -68,7 +69,7 @@ var installPadPlus = function () {
 
     console.log('Created Config!');
     ConfigTemplate.plugins.forEach(function (e) {
-        installPlugin(e, 'Plugin');
+        installPlugin(e, 'Plugin', loglevel);
       });
   });
 };
