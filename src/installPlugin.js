@@ -1,5 +1,6 @@
-var npmi = require('npmi');
-var fs = require('fs');
+const npmi = require('npmi');
+const fs = require('fs-extra');
+const configpath = process.cwd() + '/padplus.config.json';
 
 module.exports = function (module, type, loglevel, cb) {
   if (type == 'plugin')
@@ -13,6 +14,7 @@ module.exports = function (module, type, loglevel, cb) {
       loglevel: loglevel,
     },
   };
+
   npmi(options, function (err, result) {
     if (err) {
       if (err.code === npmi.LOAD_ERR)    console.log('npm load error');
@@ -20,29 +22,16 @@ module.exports = function (module, type, loglevel, cb) {
       return console.log(err.message);
     }
 
-    var processConfig = function (content) {
-      content = JSON.parse(content);
-      if (content.plugins.indexOf(module) == -1)
-      content.plugins.push(module);
-      fs.writeFile(process.cwd() + '/padplus.config.json', JSON.stringify(content, null, 4), function (err) {
-        console.log(options.name + '@' + options.version + ' installed successfully in ' + options.path);
-      });
+    if (type == 'plugin') {
+      var config = fs.readJsonSync(configpath);
+      if (config.plugins.indexOf(module) == -1)
+      config.plugins.push(module.replace('mqp-plugin-', ''));
+      fs.writeJSON(configpath, config);
+      console.log('PadPlus-Config updated!');
+    }
 
+    if (typeof cb !== 'undefined')
       cb();
-      return;
-    };
-
-    if (type == 'plugin')
-      fs.readFile(process.cwd() + '/padplus.config.json', function read(err, data) {
-        if (err) {
-          throw err;
-        }
-
-        module.replace('padplus-plugin-', '');
-        processConfig(data);
-      });
-
-    cb();
     return;
   });
 };
