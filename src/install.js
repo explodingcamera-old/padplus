@@ -4,7 +4,7 @@ var loglevel = 'error';
 module.exports = function (plugins) {
   if (typeof plugins == 'undefined') {
     console.log('No Plugins provided, installing from config');
-    
+
   }
 
   // Install Plugins from Config
