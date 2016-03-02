@@ -85,9 +85,11 @@ var installPadPlus = function () {
   console.log('Created Config!');
   ConfigTemplate.plugins.forEach(function (e, index) {
       console.log('Installing ' + e);
-      installPlugin(e, 'plugin', loglevel);
-      if (index == ConfigTemplate.plugins.length - 1)
-        console.log('Everything was succesfully installed!');
-      process.exit();
+      installPlugin(e, 'plugin', loglevel, function () {
+        if (index == ConfigTemplate.plugins.length - 1) {
+          console.log('Everything was succesfully installed!');
+          process.exit();
+        }
+      });
     });
 };

@@ -19,7 +19,9 @@
   "dependencies": {
     "assert": "^1.3.0",
     "cheerio": "^0.20.0",
+    "colors": "^1.1.2",
     "commander": "^2.9.0",
+    "download-git-repo": "^0.1.1",
     "extfs": "0.0.7",
     "fs-extra": "^0.26.5",
     "git-clone": "^0.1.0",

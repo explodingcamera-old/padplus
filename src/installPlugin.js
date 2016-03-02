@@ -2,12 +2,12 @@ const npmi = require('npmi');
 const fs = require('fs-extra');
 const configpath = process.cwd() + '/padplus.config.json';
 
-module.exports = function (module, type, loglevel, cb) {
+module.exports = function (extension, type, loglevel, cb) {
   if (type == 'plugin')
-    if (module.indexOf('mqp-plugin') == -1 && module.indexOf('/') == -1)
-      module = 'mqp-plugin-'.concat(module);
+    if (extension.indexOf('mqp-plugin') == -1 && extension.indexOf('/') == -1)
+      extension = 'mqp-plugin-'.concat(extension);
   var options = {
-    name: module,
+    name: extension,
     path: process.cwd(),
     forceInstall: false,
     npmLoad: {
@@ -24,8 +24,8 @@ module.exports = function (module, type, loglevel, cb) {
 
     if (type == 'plugin') {
       var config = fs.readJsonSync(configpath);
-      if (config.plugins.indexOf(module) == -1)
-      config.plugins.push(module.replace('mqp-plugin-', ''));
+      if (config.plugins.indexOf(extension) == -1)
+      config.plugins.push(extension.replace('mqp-plugin-', ''));
       fs.writeJSON(configpath, config);
       console.log('PadPlus-Config updated!');
     }
