@@ -34,5 +34,5 @@ node_modules
 
 test
 padplus.config.json
-musiqpad/
-index.html
+musiqpad
+templates/public
