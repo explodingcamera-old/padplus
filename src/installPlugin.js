@@ -4,8 +4,8 @@ const configPath = process.cwd() + '/padplus.config.json';
 
 module.exports = function (extension, type, loglevel, cb) {
   if (type == 'plugin')
-    if (extension.indexOf('mqp-plugin') == -1 && extension.indexOf('/') == -1)
-      extension = 'mqp-plugin-'.concat(extension);
+    if (extension.indexOf('padplus-plugin') == -1 && extension.indexOf('/') == -1)
+      extension = 'padplus-plugin-'.concat(extension);
   var options = {
     name: extension,
     path: process.cwd(),
@@ -25,7 +25,7 @@ module.exports = function (extension, type, loglevel, cb) {
     if (type == 'plugin') {
       var config = fs.readJsonSync(configPath);
       if (config.plugins.indexOf(extension) == -1)
-      config.plugins.push(extension.replace('mqp-plugin-', ''));
+      config.plugins.push(extension.replace('padplus-plugin-', ''));
       fs.writeJsonSync(configPath, config);
       console.log('PadPlus-Config updated!');
     }
