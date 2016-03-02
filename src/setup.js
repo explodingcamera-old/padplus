@@ -6,6 +6,9 @@ const download = require('download-git-repo');
 const installPlugin = require('./installPlugin.js');
 const exec = require('child_process').exec;
 const loglevel = 'error';
+
+//TODO: If config exists, extend it with the Template
+
 var ConfigTemplate = {
   version: '0.0.1',
   plugins: [
