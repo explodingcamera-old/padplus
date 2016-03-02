@@ -1,17 +1,16 @@
 #!/usr/bin/env node
 
-var program = require('commander');
-var updateNotifier = require('update-notifier');
-var os = require('os');
-var fs = require('fs');
-var path = require('path');
-var colors = require('colors');
+const program = require('commander');
+const updateNotifier = require('update-notifier');
+const os = require('os');
+const fs = require('fs-extra');
+const path = require('path');
+const colors = require('colors');
+const eol = os.EOL;
+const pkg = require('../package.json');
+const configPath = process.cwd() + '/padplus.config.json';
 
-var _exit = process.exit;
-var eol = os.EOL;
-var pkg = require('../package.json');
-
-var version = pkg.version;
+const version = pkg.version;
 
 updateNotifier({ pkg }).notify();
 
@@ -45,7 +44,7 @@ program
 	.on('--help', function () {
   console.log('  Examples:');
   console.log();
-  console.log('    $ padplus install //installs all plugins in padplus.config.json');
+  console.log('    $ padplus install //installs all plugins from padplus.config.json');
   console.log('    $ padplus install contrib-');
   console.log();
 	});

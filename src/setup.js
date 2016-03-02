@@ -6,11 +6,14 @@ const download = require('download-git-repo');
 const installPlugin = require('./installPlugin.js');
 const exec = require('child_process').exec;
 const loglevel = 'error';
-const ConfigTemplate = {
+var ConfigTemplate = {
   version: '0.0.1',
   plugins: [
     'explodingcamera/musiqplus',
   ],
+  useCDN: false,
+  cdnUrl: 'https://explodingcamera.xyz/padplus',
+  __PadPlusCDN: '//Up to 200.000 requests/month per domain',
 };
 
 module.exports = function (options) {

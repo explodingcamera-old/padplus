@@ -1,5 +1,12 @@
 const installPlugin = require('./installPlugin.js');
-var loglevel = 'error';
+const loglevel = 'error';
+const fs = require('fs-extra');
+const configPath = process.cwd() + '/padplus.config.json';
+const stats = fs.lstatSync(configPath);
+if (!stats.isFile()) {
+  console.log('ERROR: NO CONFIG FILE! Run padplus setup first or change the current dir.');
+  process.exit();
+}
 
 module.exports = function (plugins) {
   if (typeof plugins == 'undefined') {
