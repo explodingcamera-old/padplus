@@ -9,7 +9,7 @@ module.exports = function (extension, type, loglevel, cb) {
   var options = {
     name: extension,
     path: process.cwd(),
-    forceInstall: false,
+    forceInstall: true,
     npmLoad: {
       loglevel: loglevel,
     },

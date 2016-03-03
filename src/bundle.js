@@ -10,11 +10,21 @@ if (!stats.isFile()) {
 }
 
 const config = fs.readJsonSync(configPath);
-
-config.plugins.forEach(handleBundle);
+var
 
 var handleBundle = function (plugin, index) {
   console.log(plugin);
-  if (index == config.plugin.length - 1)
-    console.log(1);
+
+  var plugin = require(process.cwd() + plugin);
+  console.log(plugin.config);
+
+  if (index == config.plugins.length - 1)
+  console.log(1);
+  bundle();
 };
+
+var bundle = function () {
+
+};
+
+config.plugins.forEach(handleBundle);

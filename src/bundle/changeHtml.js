@@ -16,7 +16,7 @@ if (config.useCDN == true)
   cdn = config.cdnUrl;
 
 module.exports = function () {
-  $('script[src="/pads/lib/js/app.js"]').attr('src', cdn + '/lib/js/app.js');
-  $('body').append('<script src="' + cdn + '/lib/js/padplus.js"></script>');
+  $('script[src="/pads/lib/js/app.js"]').attr('src', cdn + '/lib/js/app.js');  //TODO: Paths need to be changed when the source code becomes avalible
+  $('body').append('<script src="/lib/js/padplus.js"></script>');
   return $;
 };
