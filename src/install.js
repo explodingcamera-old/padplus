@@ -2,18 +2,20 @@ const installPlugin = require('./installPlugin.js');
 const loglevel = 'error';
 const fs = require('fs-extra');
 const configPath = process.cwd() + '/padplus.config.json';
-const config = fs.readJsonSync(configPath);
 const bundle = require('./bundle');
 var tmp = 0;
-try {
-  fs.statSync(configPath);
-} catch (err) {
-  if (err.code == 'ENOENT')
-  console.log('ERROR: NO CONFIG FILE! Run padplus setup first or change the current dir.');
-  process.exit();
-}
 
 module.exports = function (plugins) {
+  try {
+    fs.statSync(configPath);
+  } catch (err) {
+    if (err.code == 'ENOENT')
+    console.log('ERROR: NO CONFIG FILE! Run padplus setup first or change the current dir.');
+    process.exit();
+  }
+
+  var config = fs.readJsonSync(configPath);
+
   // TODO: Install Plugins from Config
   if (typeof plugins == 'undefined') {
     console.log('No Plugins provided, installing from config');

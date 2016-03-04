@@ -6,6 +6,7 @@ const download = require('download-git-repo');
 const installPlugin = require('./installPlugin.js');
 const exec = require('child_process').exec;
 const loglevel = 'error';
+const bundle = require('./bundle');
 
 //TODO: If config exists, extend it with the Template
 
@@ -91,6 +92,7 @@ var installPadPlus = function () {
       installPlugin(e, 'plugin', loglevel, function () {
         if (index == ConfigTemplate.plugins.length - 1) {
           console.log('Everything was succesfully installed!');
+          bundle();
           process.exit();
         }
       });

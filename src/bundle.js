@@ -1,19 +1,11 @@
 const fs = require('fs-extra');
 const path = require('path');
 const configPath = process.cwd() + '/padplus.config.json';
-const stats = fs.lstatSync(configPath);
 const setupHtml = require('./bundle/changeHtml');
 const hbsfy = require('hbsfy');
 const browserifycss = require('browserify-css');
-var $ = setupHtml();
 var bundleFiles = [];
-
-if (!stats.isFile()) {
-  console.log('ERROR: NO CONFIG FILE! Run padplus setup first or change the current dir.');
-  process.exit();
-}
-
-const config = fs.readJsonSync(configPath);
+var config, $;
 
 var handleBundle = function (plugin, index) {
   if (plugin.indexOf('/') > -1)
@@ -59,5 +51,7 @@ var bundle = function () {
 };
 
 module.exports = function () {
+  $ = setupHtml();
+  config = fs.readJsonSync(configPath);
   config.plugins.forEach(handleBundle);
 };

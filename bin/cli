@@ -9,9 +9,10 @@ const colors = require('colors');
 const eol = os.EOL;
 const pkg = require('../package.json');
 const configPath = process.cwd() + '/padplus.config.json';
-const bundle = require('../src/bundle.js');
-const installPlugin = require('../src/install.js');
 
+//const bundle = require('../src/bundle.js');
+const setup = require('../src/setup.js');
+const installPlugins = require('../src/install.js');
 const version = pkg.version;
 
 updateNotifier({ pkg }).notify();
@@ -31,7 +32,7 @@ program
   .command('setup')
 	.usage('[options]')
 	.option('-T --type <type>', 'Type of installation (full|medium|lite)', /^(full|medium|lite)$/i)
-  .action(require('../src/setup.js'))
+  .action(setup)
 	.on('--help', function () {
   console.log('  Examples:');
   console.log();
@@ -42,7 +43,7 @@ program
 
 program
 	.command('install [plugins...]')
-  .action(installPlugin)
+  .action(installPlugins)
 	.on('--help', function () {
   console.log('  Examples:');
   console.log();
@@ -51,7 +52,7 @@ program
   console.log();
 	});
 
-	program
+/*	program
 		.command('bundle')
 		.action(bundle)
 		.on('--help', function () {
@@ -59,7 +60,7 @@ program
   console.log();
   console.log('    $ padplus bundel //bundles all plugins from padplus.config.json');
   console.log();
-});
+});*/
 
 program.parse(process.argv);
 
