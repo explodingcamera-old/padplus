@@ -23,7 +23,7 @@ module.exports = function (extension, type, loglevel, cb) {
     }
 
     if (extension.indexOf('padplus-plugin') != -1 && extension.indexOf('/') == -1)
-    	extension = extension.replace('padplus-plugin-', '');
+      extension = extension.replace('padplus-plugin-', '');
     if (type == 'plugin') {
       var config = fs.readJsonSync(configPath);
       console.log(extension);

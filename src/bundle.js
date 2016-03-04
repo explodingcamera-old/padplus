@@ -58,5 +58,6 @@ var bundle = function () {
 
 };
 
-config.plugins.forEach(handleBundle);
-/*module.exports =*/ bundle();
+module.exports = function () {
+  config.plugins.forEach(handleBundle);
+};

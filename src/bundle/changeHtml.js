@@ -6,8 +6,6 @@ const htmlPath = process.cwd() + '/public/index.html';
 const htmlTemplatePath = path.join(__dirname, '../../templates/public') + '/index.html';
 const config = fs.readJsonSync(configPath);
 
-console.log(config);
-
 var html = fs.readFileSync(htmlTemplatePath, 'utf8');
 var $ = cheerio.load(html);
 

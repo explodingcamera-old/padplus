@@ -3,7 +3,8 @@ const loglevel = 'error';
 const fs = require('fs-extra');
 const configPath = process.cwd() + '/padplus.config.json';
 const config = fs.readJsonSync(configPath);
-
+const bundle = require('./bundle');
+var tmp = 0;
 try {
   fs.statSync(configPath);
 } catch (err) {
@@ -13,18 +14,19 @@ try {
 }
 
 module.exports = function (plugins) {
+  // TODO: Install Plugins from Config
   if (typeof plugins == 'undefined') {
     console.log('No Plugins provided, installing from config');
-
-  }
-
-  // Install Plugins from Config
-  else
+  } else
     plugins.forEach(function (plugin, index) {
-      console.log('Installed ' + plugin);
-      installPlugin(plugin, 'plugin', loglevel, function () {
-        if (index == plugins.length - 1)
-        console.log(1);
+      x = installPlugin(plugin, 'plugin', loglevel, function () {
+        console.log('Installed ' + plugin);
+        console.log(index + ' ' + plugins.length);
+        tmp++;
+        if (tmp == plugins.length) {
+          console.log('All Plugins are now Installed! Now Bundling!');
+          bundle();
+        }
       });
     });
 };
