@@ -11,7 +11,7 @@ var handleBundle = function (plugin, index) {
   if (plugin.indexOf('/') > -1)
     plugin = plugin.split('/')[1];
 
-  var currentPlugin = require(plugin);
+  var currentPlugin = require(process.cwd() + '/node_modules/' + plugin);
   $ = currentPlugin.modifyHtml($, config);
 
   bundleFiles.push(currentPlugin.clientJs);

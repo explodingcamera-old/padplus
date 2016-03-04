@@ -1,6 +1,6 @@
 {
   "name": "padplus",
-  "version": "0.2.0",
+  "version": "0.2.3",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -30,7 +30,7 @@
     "fs-extra": "^0.26.5",
     "handlebars": "^4.0.5",
     "hbsfy": "^2.5.1",
-    "npmi": "^1.0.1",
+    "npmi-fix": "github:explodingcamera/npmi",
     "update-notifier": "^0.6.0",
     "yesno": "0.0.1"
   }

@@ -63,12 +63,12 @@ var checkForMP = function () {
 
 var dlMusiqPad = function () {
   console.log('Downloading MusiqPad');
-  download('musiqpad/mqp-server', process.cwd() + '/musiqpad'/* <- text is just for testing, will be removed at beta release*/, function (err) {
+  download('musiqpad/mqp-server', process.cwd(), function (err) {
     if (err) {
       console.log(colors.red('Error: ') + err);
       process.exit();
     } else {
-      exec('npm install', { cwd: (process.cwd() + '/musiqpad') },  /* <- text is just for testing, will be removed at beta release*/
+      exec('npm install', { cwd: (process.cwd()) },
         (error, stdout, stderr) => {
           console.log(`stdout: ${stdout}`);
           console.log(`stderr: ${stderr}`);
