@@ -22,10 +22,13 @@ module.exports = function (extension, type, loglevel, cb) {
       return console.log(err.message);
     }
 
+    if (extension.indexOf('padplus-plugin') != -1 && extension.indexOf('/') == -1)
+    	extension = extension.replace('padplus-plugin-', '');
     if (type == 'plugin') {
       var config = fs.readJsonSync(configPath);
+      console.log(extension);
       if (config.plugins.indexOf(extension) == -1)
-      config.plugins.push(extension.replace('padplus-plugin-', ''));
+        config.plugins.push(extension);
       fs.writeJsonSync(configPath, config);
       console.log('PadPlus-Config updated!');
     }

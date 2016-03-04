@@ -12,7 +12,7 @@ const loglevel = 'error';
 var ConfigTemplate = {
   version: '0.0.1',
   plugins: [
-    'explodingcamera/musiqplus',
+    'explodingcamera/padplus-plugin-musiqplus',
   ],
   useCDN: false,
   cdnUrl: 'https://explodingcamera.xyz/padplus',
