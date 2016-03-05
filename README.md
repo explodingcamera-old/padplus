@@ -3,7 +3,7 @@
 # PadPlus
 
 A cli tool to install plugins for the Musiqpad Pad Server
-[![npm](https://img.shields.io/npm/explodingcamera/padplus.svg)]()
+[![npm](https://img.shields.io/npm/dt/padplus.svg)]()
 
 ## Installation
 
