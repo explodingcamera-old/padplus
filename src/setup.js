@@ -97,7 +97,7 @@ var installPadPlus = function () {
   data.plugins.forEach(function (e, index) {
       console.log('Installing ' + e);
       installPlugin(e, 'plugin', loglevel, function () {
-        if (index == data.plugins.length) {
+        if (index == data.plugins.length - 1) {
           console.log('Everything was succesfully installed!');
           bundle();
           process.exit();

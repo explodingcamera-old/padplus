@@ -8,7 +8,6 @@ module.exports = function (extension, type, loglevel, cb) {
     extension = extension.replace('padplus-plugin-', '');
     if (type == 'plugin') {
       var config = fs.readJsonSync(configPath);
-      console.log(extension);
       if (config.plugins.indexOf(extension) == -1)
       config.plugins.push(extension);
       fs.writeJsonSync(configPath, config);
@@ -16,23 +15,21 @@ module.exports = function (extension, type, loglevel, cb) {
     }
 
     if (typeof cb !== 'undefined')
-    cb();
+      cb();
     return;
   };
 
   if (type == 'plugin')
     if (extension.indexOf('padplus-plugin-') == -1 && extension.indexOf('/') == -1)
       extension = 'padplus-plugin-'.concat(extension);
-  exec('npm install' + extension, { cwd: (process.cwd()) },
+  exec('npm install ' + extension, { cwd: (process.cwd()) },
     (error, stdout, stderr) => {
-      console.log(`stdout: ${stdout}`);
-      console.log(`stderr: ${stderr}`);
+      console.log(`${stdout}`);
+      console.log(`Error: ${stderr}`);
       if (error !== null) {
         console.log(`exec error: ${error}`);
       }
 
-      console.log('Succesfully installed all dependencies of MusiqPad');
-      console.log('Now installing PadPlus');
       installPadPlus();
     });
 };
