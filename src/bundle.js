@@ -40,14 +40,9 @@ var bundle = function () {
     console.log(err);
     console.log(buffer.toString('utf-8'));
     var js = buffer.toString('utf-8');
+
+    // TODO: write js to file
   });
-
-  /*bundleFiles.forEach(function (path, index) {
-    b.add({
-      entries: ""
-    })
-  });       Will be used if the basedir is a problem */
-
 };
 
 module.exports = function () {

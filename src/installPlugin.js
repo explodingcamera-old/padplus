@@ -1,4 +1,4 @@
-const npmi = require('npmi');
+const npmi = require('npmi-fix');
 const fs = require('fs-extra');
 const configPath = process.cwd() + '/padplus.config.json';
 

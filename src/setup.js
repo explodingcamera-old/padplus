@@ -30,17 +30,8 @@ module.exports = function (options) {
   checkForMP();
 };
 
-var dirIsEmpty = function () {
-  var isEmpty = 0;
-  extfs.isEmpty(process.cwd(), function (empty) {
-    isEmpty = empty;
-  });
-
-  return isEmpty;
-};
-
 var checkForMP = function () {
-  if (dirIsEmpty() == false) {
+  if (!fs.readdirSync(process.cwd()).length == false) {
     console.log("MusiqPad is already installed or the dir isn't empty.");
     yesno.ask('Are you sure you want to continue? (Y/n)', true, function (ok) {
       if (ok) {
