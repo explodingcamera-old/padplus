@@ -23,7 +23,6 @@ module.exports = function (plugins) {
     plugins.forEach(function (plugin, index) {
       x = installPlugin(plugin, 'plugin', loglevel, function () {
         console.log('Installed ' + plugin);
-        console.log(index + ' ' + plugins.length);
         tmp++;
         if (tmp == plugins.length) {
           console.log('All Plugins are now Installed! Now Bundling!');

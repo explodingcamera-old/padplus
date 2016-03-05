@@ -1,13 +1,13 @@
 {
   "name": "padplus",
-  "version": "0.2.6",
+  "version": "0.2.11",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "padplus": "bin/cli"
+    "padplus": "./bin/cli"
   },
   "repository": {
     "type": "git",
@@ -30,8 +30,7 @@
     "fs-extra": "^0.26.5",
     "handlebars": "^4.0.5",
     "hbsfy": "^2.5.1",
-    "npmi-fix": "github:explodingcamera/npmi",
-    "update-notifier": "^0.6.0",
+    "npmi": "^1.0.1",
     "yesno": "0.0.1"
   }
 }

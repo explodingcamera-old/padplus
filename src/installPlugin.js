@@ -1,4 +1,4 @@
-const npmi = require('npmi-fix');
+const npmi = require('npmi');
 const fs = require('fs-extra');
 const configPath = process.cwd() + '/padplus.config.json';
 
@@ -15,6 +15,7 @@ module.exports = function (extension, type, loglevel, cb) {
     },
   };
 
+  // TODO: Run a cmd in the terminal instead of using npmi bc npm is so laaaarge omg
   npmi(options, function (err, result) {
     if (err) {
       if (err.code === npmi.LOAD_ERR)    console.log('npm load error');

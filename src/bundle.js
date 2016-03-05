@@ -10,17 +10,16 @@ var config, $;
 var handleBundle = function (plugin, index) {
   if (plugin.indexOf('/') > -1)
     plugin = plugin.split('/')[1];
+  else if (plugin.indexOf('padplus-plugin') == -1 && plugin.indexOf('/') == -1)
+    plugin = 'padplus-plugin-'.concat(plugin);
 
   var currentPlugin = require(process.cwd() + '/node_modules/' + plugin);
   $ = currentPlugin.modifyHtml($, config);
 
   bundleFiles.push(currentPlugin.clientJs);
 
-  console.log($.html());
-
-  // TODO: Write HTML to file
-
-  if (index == config.plugins.length + 1)
+  // TODO: Write HTML to file $.html()
+  if (index == config.plugins.length - 1)
     bundle();
 };
 

@@ -8,13 +8,19 @@ const exec = require('child_process').exec;
 const loglevel = 'error';
 const bundle = require('./bundle');
 
+Object.prototype.extend = function (obj) {
+  for (var i in obj) {
+    if (obj.hasOwnProperty(i)) {
+      this[i] = obj[i];
+    }
+  }
+};
+
 //TODO: If config exists, extend it with the Template
 
 var ConfigTemplate = {
   version: '0.0.1',
-  plugins: [
-    'explodingcamera/padplus-plugin-musiqplus',
-  ],
+  plugins: [],
   useCDN: false,
   cdnUrl: 'https://explodingcamera.xyz/padplus',
   __PadPlusCDN: '//Up to 200.000 requests/month per domain',
@@ -76,12 +82,21 @@ var dlMusiqPad = function () {
 };
 
 var installPadPlus = function () {
-  fs.outputJsonSync(process.cwd() + '/padplus.config.json', ConfigTemplate);
+  var data;
+  try {
+    var data = fs.readJsonSync(process.cwd() + '/padplus.config.json');
+  } catch (err) {
+    data = ConfigTemplate;
+  }
+
+  console.log(data);
+
+  fs.outputJsonSync(process.cwd() + '/padplus.config.json', data);
   console.log('Created Config!');
-  ConfigTemplate.plugins.forEach(function (e, index) {
+  data.plugins.forEach(function (e, index) {
       console.log('Installing ' + e);
       installPlugin(e, 'plugin', loglevel, function () {
-        if (index == ConfigTemplate.plugins.length - 1) {
+        if (index == data.plugins.length - 1) {
           console.log('Everything was succesfully installed!');
           bundle();
           process.exit();

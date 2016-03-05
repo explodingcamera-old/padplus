@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 const program = require('commander');
-const updateNotifier = require('update-notifier');
 const os = require('os');
 const fs = require('fs-extra');
 const path = require('path');
@@ -14,8 +13,6 @@ const bundle = require('../src/bundle.js');
 const setup = require('../src/setup.js');
 const installPlugins = require('../src/install.js');
 const version = pkg.version;
-
-updateNotifier({ pkg }).notify();
 
 program
 	.usage('<command> [options]')
