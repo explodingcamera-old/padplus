@@ -3,8 +3,6 @@ const loglevel = 'error';
 const fs = require('fs-extra');
 const configPath = process.cwd() + '/padplus.config.json';
 const bundle = require('./bundle');
-const exec = require('child_process').exec;
-
 var tmp = 0;
 
 module.exports = function (plugins) {
