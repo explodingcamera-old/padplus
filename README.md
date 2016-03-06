@@ -1,5 +1,3 @@
-# This is still in alpha!
-
 # PadPlus
 
 A cli tool to install plugins for the Musiqpad Pad Server
