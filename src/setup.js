@@ -16,7 +16,7 @@ Object.prototype.extend = function (obj) {
   }
 };
 
-//TODO: If config exists, extend it with the Template
+//TODO: If config exists, extend it with the Template (Sortof already done)
 
 var ConfigTemplate = {
   version: pkg.version,
@@ -90,8 +90,9 @@ var installPadPlus = function () {
   }
 
   console.log(data);
-  if (data.plugins.indexOf('musiqplus') == -1)
-    data.plugins.push('musiqplus');
+  if (data.plugins.indexOf('padplus-plugin-api') == -1)      //  TODO: PADPLUS API
+    data.plugins.push('padplus-plugin-api');
+  data.version = ConfigTemplate.version;
   fs.outputJsonSync(process.cwd() + '/padplus.config.json', data);
   console.log('Created Config!');
   data.plugins.forEach(function (e, index) {

@@ -15,12 +15,13 @@ var handleBundle = function (plugin, index) {
 
   var currentPlugin = require(process.cwd() + '/node_modules/' + plugin);
   $ = currentPlugin.modifyHtml($, config);
-
   bundleFiles.push(currentPlugin.clientJs);
 
-  // TODO: Write HTML to file $.html()
-  if (index == config.plugins.length - 1)
+  if (index == config.plugins.length - 1) {
+    //TODO: Remove that extend stuff
+    fs.outputFileSync(process.cwd() + '/webserver/public/index.html', $.html());
     bundle();
+  }
 };
 
 var bundle = function () {
@@ -37,15 +38,15 @@ var bundle = function () {
 
   b.bundle(function (err, buffer) {
     console.log(err);
-    console.log(buffer.toString('utf-8'));
     var js = buffer.toString('utf-8');
-
-    // TODO: write js to file
+    fs.outputFileSync(process.cwd() + '/webserver/public/lib/js/padplus.js', js);
   });
 };
 
 module.exports = function () {
-  $ = setupHtml();
-  config = fs.readJsonSync(configPath);
-  config.plugins.forEach(handleBundle);
+  setTimeout(function () {
+    $ = setupHtml();
+    config = fs.readJsonSync(configPath);
+    config.plugins.forEach(handleBundle);
+  }, 100);
 };
