@@ -11,7 +11,7 @@ const configPath = process.cwd() + '/padplus.config.json';
 
 try {
   if (!!fs.readdirSync(process.cwd() + '/node_modules').length) //Fixing a bug in the encode module, TODO: check if already fixed
-    fs.copySync(path.resolve(__dirname, '../templates/encode.js'), path.resolve(__dirname, '../node_modules/entities/lib/encode.js'));
+    fs.copySync(path.resolve(__dirname, '../templates/encode.js'), path.resolve(__dirname, '../node_modules/dom-serializer/node_modules/entities/lib/encode.js'));
 } catch (err) {}
 
 const bundle = require('../src/bundle.js');
