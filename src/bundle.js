@@ -6,6 +6,15 @@ const hbsfy = require('hbsfy');
 const browserifycss = require('browserify-css');
 var bundleFiles = [];
 var config, $;
+const colors = require('colors');
+
+colors.setTheme({
+  silly: 'rainbow',
+  info: 'cyan',
+  prompt: 'white',
+  data: 'grey',
+  error: 'red',
+});
 
 var handleBundle = function (plugin, index) {
   if (plugin.indexOf('/') > -1)
@@ -14,8 +23,16 @@ var handleBundle = function (plugin, index) {
     plugin = 'padplus-plugin-'.concat(plugin);
 
   var currentPlugin = require(process.cwd() + '/node_modules/' + plugin);
-  $ = currentPlugin.modifyHtml($, config);
-  bundleFiles.push(currentPlugin.clientJs);
+
+  if (typeof currentPlugin.modifyHtml != 'undefined') {
+    modified = currentPlugin.modifyHtml($, config);
+    if (typeof modified != 'undefined') {
+      $ = modified;
+    }
+  }
+
+  if (typeof currentPlugin.clientJs != 'undefined')
+    bundleFiles.push(currentPlugin.clientJs);
 
   if (index == config.plugins.length - 1) {
     //TODO: Remove that extend stuff
@@ -25,7 +42,7 @@ var handleBundle = function (plugin, index) {
 };
 
 var bundle = function () {
-  console.log('Now Bundeling client js files');
+  console.log('Now Bundeling client js files'.info);
   var browserify = require('browserify');
   var b = browserify({
     transform: [hbsfy, browserifycss],
@@ -37,16 +54,16 @@ var bundle = function () {
   });
 
   b.bundle(function (err, buffer) {
-    console.log(err);
+    if (err)
+      console.log(err);
     var js = buffer.toString('utf-8');
     fs.outputFileSync(process.cwd() + '/webserver/public/lib/js/padplus.js', js);
+    console.log('Bundleing complete!'.info);
   });
 };
 
 module.exports = function () {
-  setTimeout(function () {
-    $ = setupHtml();
-    config = fs.readJsonSync(configPath);
-    config.plugins.forEach(handleBundle);
-  }, 100);
+  $ = setupHtml();
+  config = fs.readJsonSync(configPath);
+  config.plugins.forEach(handleBundle);
 };

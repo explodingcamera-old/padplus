@@ -8,6 +8,14 @@ const exec = require('child_process').exec;
 const loglevel = 'error';
 const bundle = require('./bundle');
 const pkg = require('../package.json');
+colors.setTheme({
+  silly: 'rainbow',
+  info: 'cyan',
+  prompt: 'white',
+  data: 'grey',
+  error: 'red',
+});
+
 Object.prototype.extend = function (obj) {
   for (var i in obj) {
     if (obj.hasOwnProperty(i)) {
@@ -28,8 +36,7 @@ var ConfigTemplate = {
 
 module.exports = function (options) {
   if (typeof options.type == 'undefined') {
-    console.log(colors.green('No type provided, using default (full)'));
-    console.log();
+    console.log(colors.green('No type provided, using default (full)'.info));
     options.type = 'full';
   }
 
@@ -38,10 +45,10 @@ module.exports = function (options) {
 
 var checkForMP = function () {
   if (!fs.readdirSync(process.cwd()).length == false) {
-    console.log("MusiqPad is already installed or the dir isn't empty.");
-    yesno.ask('Are you sure you want to continue? (Y/n)', true, function (ok) {
+    console.log("MusiqPad is already installed or the dir isn't empty.".info);
+    yesno.ask('Are you sure you want to continue? (Y/n)'.prompt, true, function (ok) {
       if (ok) {
-        yesno.ask('Do you want to (re)install MusiqPad? (Y/n)', true, function (ok2) {
+        yesno.ask('Do you want to (re)install MusiqPad? (Y/n)'.prompt, true, function (ok2) {
           if (ok2) {
             dlMusiqPad();
           } else {
@@ -59,22 +66,19 @@ var checkForMP = function () {
 };
 
 var dlMusiqPad = function () {
-  console.log('Downloading MusiqPad');
+  console.log('Downloading MusiqPad'.info);
   download('musiqpad/mqp-server', process.cwd(), function (err) {
     if (err) {
-      console.log(colors.red('Error: ') + err);
+      console.log(colors.red('Error: '.error) + err);
       process.exit();
     } else {
+      console.log('Download finished, now installing dependencies'.info);
+      console.log('This step might take some time ...'.info);
       exec('npm install', { cwd: (process.cwd()) },
         (error, stdout, stderr) => {
-          console.log(`stdout: ${stdout}`);
-          console.log(`stderr: ${stderr}`);
-          if (error !== null) {
-            console.log(`exec error: ${error}`);
-          }
-
-          console.log('Succesfully installed all dependencies of MusiqPad');
-          console.log('Now installing PadPlus');
+          console.log(`${stdout}`.info);
+          console.log('Succesfully installed all dependencies of MusiqPad'.info);
+          console.log('Now installing PadPlus...'.info);
           installPadPlus();
         });
     }
@@ -89,17 +93,16 @@ var installPadPlus = function () {
     data = ConfigTemplate;
   }
 
-  console.log(data);
-  if (data.plugins.indexOf('padplus-plugin-api') == -1)      //  TODO: PADPLUS API
-    data.plugins.push('padplus-plugin-api');
+  if (data.plugins.indexOf('api') == -1)      //  TODO: PADPLUS API
+    data.plugins.push('api');
   data.version = ConfigTemplate.version;
   fs.outputJsonSync(process.cwd() + '/padplus.config.json', data);
-  console.log('Created Config!');
+  console.log('Created Config!'.info);
   data.plugins.forEach(function (e, index) {
-      console.log('Installing ' + e);
+      console.log('Installing '.info + e);
       installPlugin(e, 'plugin', loglevel, function () {
         if (index == data.plugins.length - 1) {
-          console.log('Everything was succesfully installed!');
+          console.log('Everything was succesfully installed!'.info);
           bundle();
           process.exit();
         }
