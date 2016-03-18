@@ -36,7 +36,6 @@ module.exports = function (extension, type, loglevel, cb) {
       if (error !== null) {
         console.log(`ERROR: ${error}`.error);
       }
-
       updateConfig();
     });
 };

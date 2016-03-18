@@ -1,12 +1,13 @@
+'use strict';
 const fs = require('fs-extra');
 const path = require('path');
 const configPath = process.cwd() + '/padplus.config.json';
-const setupHtml = require('./bundle/changeHtml');
+const htmlTemplatePath = path.join(__dirname, '../templates/public') + '/index.html';
 const hbsfy = require('hbsfy');
 const browserifycss = require('browserify-css');
-var bundleFiles = [];
-var config, $;
 const colors = require('colors');
+const cheerio = require('cheerio');
+var bundleFiles = [], $, html, config;
 
 colors.setTheme({
   silly: 'rainbow',
@@ -25,7 +26,7 @@ var handleBundle = function (plugin, index) {
   var currentPlugin = require(process.cwd() + '/node_modules/' + plugin);
 
   if (typeof currentPlugin.modifyHtml != 'undefined') {
-    modified = currentPlugin.modifyHtml($, config);
+    var modified = currentPlugin.modifyHtml($, config);
     if (typeof modified != 'undefined') {
       $ = modified;
     }
@@ -35,8 +36,12 @@ var handleBundle = function (plugin, index) {
     bundleFiles.push(currentPlugin.clientJs);
 
   if (index == config.plugins.length - 1) {
-    //TODO: Remove that extend stuff
-    fs.outputFileSync(process.cwd() + '/webserver/public/index.html', $.html());
+    $('*').each(function(i, elem){
+      $(this).attr('extend', '');
+    });
+    $('html').append('HEEEY!');
+    fs.outputFileSync(process.cwd() + '/webserver/public/index.html', $.html().replace(/ extend=""/g, ""));
+    console.log('Bundled HTML');
     bundle();
   }
 };
@@ -49,8 +54,6 @@ var bundle = function () {
     entries: bundleFiles,
     paths: ['./', process.cwd()],
     browserField: false,
-
-    // TODO: Add padplus api file
   });
 
   b.bundle(function (err, buffer) {
@@ -63,7 +66,12 @@ var bundle = function () {
 };
 
 module.exports = function () {
-  $ = setupHtml();
   config = fs.readJsonSync(configPath);
+  html = fs.readFileSync(htmlTemplatePath, 'utf8');
+  $ = cheerio.load(html, {
+    decodeEntities: false,
+    normalizeWhitespace: true,
+  });
+  var cdn = '';
   config.plugins.forEach(handleBundle);
 };

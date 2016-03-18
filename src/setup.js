@@ -76,7 +76,6 @@ var dlMusiqPad = function () {
       console.log('This step might take some time ...'.info);
       exec('npm install', { cwd: (process.cwd()) },
         (error, stdout, stderr) => {
-          console.log(`${stdout}`.info);
           console.log('Succesfully installed all dependencies of MusiqPad'.info);
           console.log('Now installing PadPlus...'.info);
           installPadPlus();
