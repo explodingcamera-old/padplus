@@ -1,13 +1,13 @@
 {
   "name": "padplus",
-  "version": "0.6.1",
+  "version": "0.6.6",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "padplus": "./bin/cli"
+    "padplus": "bin/cli.js"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,7 @@
   "dependencies": {
     "browserify": "^13.0.0",
     "browserify-css": "^0.9.0",
+    "cheerio": "^0.20.0",
     "colors": "^1.1.2",
     "commander": "^2.9.0",
     "download-git-repo": "^0.1.1",
