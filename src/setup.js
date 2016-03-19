@@ -29,7 +29,7 @@ Object.prototype.extend = function (obj) {
 var ConfigTemplate = {
   version: pkg.version,
   plugins: [],
-  useCDN: false,
+  useCDN: true,
   cdnUrl: 'https://explodingcamera.xyz/padplus',
   __PadPlusCDN: '//Up to 200.000 requests/month per domain',
 };

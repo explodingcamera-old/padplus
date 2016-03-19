@@ -36,11 +36,11 @@ var handleBundle = function (plugin, index) {
     bundleFiles.push(currentPlugin.clientJs);
 
   if (index == config.plugins.length - 1) {
-    $('*').each(function(i, elem){
+    $('*').each(function (i, elem) {
       $(this).attr('extend', '');
     });
-    $('html').append('HEEEY!');
-    fs.outputFileSync(process.cwd() + '/webserver/public/index.html', $.html().replace(/ extend=""/g, ""));
+
+    fs.outputFileSync(process.cwd() + '/webserver/public/index.html', $.html().replace(/ extend=""/g, ''));
     console.log('Bundled HTML');
     bundle();
   }
@@ -67,11 +67,8 @@ var bundle = function () {
 
 module.exports = function () {
   config = fs.readJsonSync(configPath);
+  console.log(configPath);
   html = fs.readFileSync(htmlTemplatePath, 'utf8');
-  $ = cheerio.load(html, {
-    decodeEntities: false,
-    normalizeWhitespace: true,
-  });
-  var cdn = '';
+  $ = cheerio.load(html);
   config.plugins.forEach(handleBundle);
 };
