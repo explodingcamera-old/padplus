@@ -16,7 +16,7 @@ const update = require('../src/update');
 const version = pkg.version;
 
 const request = require('request');
-request('https://explodingcamera.com/padplus/version.json', function (error, response, body) {
+request('https://explodingcamera.xyz/padplus/version.json', function (error, response, body) {
   if (!error && response.statusCode == 200) {
     data = JSON.parse(body);
     if (data.version != version) {

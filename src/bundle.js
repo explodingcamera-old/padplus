@@ -25,8 +25,17 @@ var handleBundle = function (plugin, index) {
 
   var currentPlugin = require(process.cwd() + '/node_modules/' + plugin);
 
+  /* JUST SO I DON'T BREAK ANY OLD PLUGINS, WILL BE REMOVED ON THE 31.03.2016 */
   if (typeof currentPlugin.modifyHtml != 'undefined') {
     var modified = currentPlugin.modifyHtml($, config);
+    if (typeof modified != 'undefined') {
+      $ = modified;
+    }
+  }
+  /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+  if (typeof currentPlugin.func != 'undefined') {
+    var modified = currentPlugin.func($, config);
     if (typeof modified != 'undefined') {
       $ = modified;
     }
