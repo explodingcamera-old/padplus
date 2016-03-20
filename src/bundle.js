@@ -7,7 +7,7 @@ const hbsfy = require('hbsfy');
 const browserifycss = require('browserify-css');
 const colors = require('colors');
 const cheerio = require('cheerio');
-const tidy = require('htmltidy').tidy;
+const minify = require('html-minifier').minify;
 var bundleFiles = [], $, html, config;
 
 colors.setTheme({
@@ -58,9 +58,13 @@ var handleBundle = function (plugin, index) {
       $(this).attr('extend', '');
     });
 
-    tidy($.html(), function (err, html) {
-      fs.outputFileSync(process.cwd() + '/webserver/public/index.html', html.replace(/ extend=""/g, ''));
+    var html = minify($.html(), {
+      removeAttributeQuotes: true,
+      removeComments: true,
+      collapseWhitespace: true,
+      removeTagWhitespace: true,
     });
+    fs.outputFileSync(process.cwd() + '/webserver/public/index.html', html.replace(/ extend=extend/g, ''));
 
     fs.outputJsonSync(configPath, config);
     console.log('Bundled HTML');
