@@ -7,6 +7,7 @@ const hbsfy = require('hbsfy');
 const browserifycss = require('browserify-css');
 const colors = require('colors');
 const cheerio = require('cheerio');
+const tidy = require('htmltidy').tidy;
 var bundleFiles = [], $, html, config;
 
 colors.setTheme({
@@ -35,9 +36,17 @@ var handleBundle = function (plugin, index) {
   /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
   if (typeof currentPlugin.func != 'undefined') {
-    var modified = currentPlugin.func($, config);
-    if (typeof modified != 'undefined') {
-      $ = modified;
+    var modified = currentPlugin.func({
+      $: $,
+      config: config,
+    });
+
+    if (typeof modified.$ != 'undefined') {
+      $ = modified.$;
+    }
+
+    if (typeof modified.config != 'undefined') {
+      config = modified.config;
     }
   }
 
@@ -49,7 +58,11 @@ var handleBundle = function (plugin, index) {
       $(this).attr('extend', '');
     });
 
-    fs.outputFileSync(process.cwd() + '/webserver/public/index.html', $.html().replace(/ extend=""/g, ''));
+    tidy($.html(), function (err, html) {
+      fs.outputFileSync(process.cwd() + '/webserver/public/index.html', html.replace(/ extend=""/g, ''));
+    });
+
+    fs.outputJsonSync(configPath, config);
     console.log('Bundled HTML');
     bundle();
   }

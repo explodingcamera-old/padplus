@@ -1,6 +1,6 @@
 {
   "name": "padplus",
-  "version": "0.6.8",
+  "version": "0.6.12",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -30,6 +30,7 @@
     "fs-extra": "^0.26.5",
     "handlebars": "^4.0.5",
     "hbsfy": "^2.5.1",
+    "htmltidy": "0.0.6",
     "request": "^2.69.0",
     "yesno": "0.0.1"
   }
