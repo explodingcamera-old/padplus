@@ -2,6 +2,7 @@
 
 A cli tool to install plugins for the Musiqpad Pad Server
 [![npm](https://img.shields.io/npm/dt/padplus.svg)]()
+(PadPlus is still in alpha and might contain Bugs, if you find any, please report them and/or send a pr)
 
 ## Installation
 
