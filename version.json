@@ -1,4 +1,4 @@
 {
-  "version": "0.6.16",
+  "version": "0.6.18",
   "msg": "A new update is Avalible! Type 'npm i padplus -g' to update PadPlus!\nAlso be sure to update musiqpad and your Plugins with 'padplus update'"
 }
